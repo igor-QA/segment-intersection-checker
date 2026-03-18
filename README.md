@@ -33,6 +33,14 @@ java -jar target/segment-intersection-checker-1.0-SNAPSHOT.jar
 Используются координаты по умолчанию
 Segments intersect: true
 ```
+Можно передать координаты через аргументы командной строки:
+```bash
+java -jar target/segment-intersection-checker-1.0-SNAPSHOT.jar x1 y1 x2 y2 x3 y3 x4 y4
+```
+Пример 
+```bash
+java -jar target/segment-intersection-checker-1.0-SNAPSHOT.jar 0 0 5 5 0 5 5 0
+```
 
 ### Запуск тестов
 
