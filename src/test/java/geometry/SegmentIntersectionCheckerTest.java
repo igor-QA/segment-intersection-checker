@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Тесты проверки пересечения отрезков")
 public class SegmentIntersectionCheckerTest {
@@ -41,15 +40,27 @@ public class SegmentIntersectionCheckerTest {
     }
 
     @Test
-    @Description("Погрешность double (EPS)")
+    @Description("Погрешность double (EPS) - граничный случай")
     void shouldHandleFloatingPointPrecision() {
 
-        Segment s1 = new Segment(0.1, 0.1, 0.3, 0.3);
-        Segment s2 = new Segment(0.2, 0.2, 0.4, 0.2);
+        Segment s1 = new Segment(0, 0, 1e-10, 1e-10);
+        Segment s2 = new Segment(0, 1e-10, 1e-10, 0);
 
         assertTrue(
                 SegmentIntersectionChecker.intersects(s1, s2),
-                "Должны пересекаться"
+                "Должны пересекаться даже при очень маленьких значениях"
+        );
+    }
+
+    @Test
+    @Description("Проверка симметричности")
+    void shouldBeSymmetric() {
+        Segment s1 = new Segment(0, 0, 5, 5);
+        Segment s2 = new Segment(0, 5, 5, 0);
+
+        assertEquals(
+                SegmentIntersectionChecker.intersects(s1, s2),
+                SegmentIntersectionChecker.intersects(s2, s1)
         );
     }
 }

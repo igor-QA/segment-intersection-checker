@@ -2,6 +2,8 @@ package geometry;
 
 public class SegmentIntersectionChecker {
 
+    private static final double EPS = 1e-9;
+
     public static boolean intersects(Segment s1, Segment s2) {
 
         double x1 = s1.getX1(), y1 = s1.getY1();
@@ -19,13 +21,17 @@ public class SegmentIntersectionChecker {
             return true;
         }
 
-        // --- частные случаи (коллинеарность) ---
-        if (d1 == 0 && onSegment(x3, y3, x4, y4, x1, y1)) return true;
-        if (d2 == 0 && onSegment(x3, y3, x4, y4, x2, y2)) return true;
-        if (d3 == 0 && onSegment(x1, y1, x2, y2, x3, y3)) return true;
-        if (d4 == 0 && onSegment(x1, y1, x2, y2, x4, y4)) return true;
+        // --- коллинеарность (через EPS) ---
+        if (isZero(d1) && onSegment(x3, y3, x4, y4, x1, y1)) return true;
+        if (isZero(d2) && onSegment(x3, y3, x4, y4, x2, y2)) return true;
+        if (isZero(d3) && onSegment(x1, y1, x2, y2, x3, y3)) return true;
+        if (isZero(d4) && onSegment(x1, y1, x2, y2, x4, y4)) return true;
 
         return false;
+    }
+
+    private static boolean isZero(double val) {
+        return Math.abs(val) < EPS;
     }
 
     private static double direction(double xi, double yi,
@@ -37,7 +43,9 @@ public class SegmentIntersectionChecker {
     private static boolean onSegment(double xi, double yi,
                                      double xj, double yj,
                                      double xk, double yk) {
-        return xk <= Math.max(xi, xj) && xk >= Math.min(xi, xj) &&
-                yk <= Math.max(yi, yj) && yk >= Math.min(yi, yj);
+        return Math.min(xi, xj) <= xk && xk <= Math.max(xi, xj) &&
+                Math.min(yi, yj) <= yk && yk <= Math.max(yi, yj);
     }
 }
+
+

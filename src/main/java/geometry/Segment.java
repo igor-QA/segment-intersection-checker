@@ -1,8 +1,12 @@
 package geometry;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
+@EqualsAndHashCode
 public class Segment {
     private final Point start;
     private final Point end;
@@ -12,11 +16,8 @@ public class Segment {
         this.end = new Point(x2, y2);
     }
 
-    public double getX1() {return start.getX();}
-
-    public double getY1() {return start.getY();}
-
-    public double getX2() {return end.getX();}
-
-    public double getY2() {return end.getY();}
+    public double getX1() { return start.getX(); }
+    public double getY1() { return start.getY(); }
+    public double getX2() { return end.getX(); }
+    public double getY2() { return end.getY(); }
 }
