@@ -28,9 +28,14 @@ mvn clean test
 ```
 
 Allure отчет 
+1.  
+```
+allure: serve
+```
+2.
+```
+allure: report
+```
 
-```
-allure: serve и allure: report
-```
 
 
